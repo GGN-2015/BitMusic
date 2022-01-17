@@ -39,21 +39,8 @@ if __name__ == "__main__":
     makeFlag.addPattern(ptF  * 2)
     makeFlag.quickCompile(compiledFileName="./compiled/fg.tmp.compiled.json", WAVFileName=None) # 制作 FG
     
-    linkCompiled.merge(
-        [
-            "./compiled/fg.tmp.compiled.json",
-            "./compiled/bg.tmp.compiled.json"
-        ],
-        "./compiled/newMusic.compiled.json"
+    compiledToWAV.twoChannelsCompile(
+        "./compiled/fg.tmp.compiled.json", # 左声道
+        "./compiled/bg.tmp.compiled.json", # 右声道
+        "./wav/newMusic.wav"
     ) # 叠加
-
-    linkCompiled.connect(
-        [
-            "./compiled/newMusic.compiled.json",
-            "./compiled/newMusic.compiled.json"
-        ],
-        "./compiled/newMusic.compiled.json"
-    ) # 连接
-
-    compiledToWAV.compile(simplingRate=88200) # 编译成 wav 文件
-    

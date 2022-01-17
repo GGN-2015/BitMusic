@@ -10,8 +10,7 @@ import scipy.io.wavfile as wf
 
 import toneMgr # 音色管理器 (可能需要进行拓展)
 
-def compile(fileName = './compiled/newMusic.compiled.json', WAVFileName = './wav/newMusic.wav', simplingRate = 44100): 
-                                                   # 编译一个 .compiled.json 文件
+def getWAVArrayFromCompiled(fileName: str, simplingRate: int):
     with open(fileName, "r") as fin:               # 读取 .compiled.json 文件
         compiledJson = json.load(fin)
     musicLength = compiledJson["length"]           # 乐曲持续的秒数
@@ -39,5 +38,22 @@ def compile(fileName = './compiled/newMusic.compiled.json', WAVFileName = './wav
         print("[compiledToWAV] warning: maxValue = %f > 1." % maxValue)
     music *= (2 ** 15)
     music = music.astype(np.int16)
+    return music
+
+def compile(fileName = './compiled/newMusic.compiled.json', WAVFileName = './wav/newMusic.wav', simplingRate = 44100): 
+                                                   # 编译一个 .compiled.json 文件
+    music = getWAVArrayFromCompiled(fileName, simplingRate)
     wf.write(WAVFileName, simplingRate, music)        # 写入到 WAV 文件中
     print("[compiledToWAV] compile success, outputFile: %s" % WAVFileName)
+
+def twoChannelsCompile( # 编译一个具有双声道的
+        fileNameLeft  = './compiled/newMusicLeft.compiled.json', 
+        fileNameRight = './compiled/newMusicRight.compiled.json',
+        WAVFileName   = './wav/newMusic.wav',
+        simplingRate  = 44100
+    ):
+    musicLeft  = getWAVArrayFromCompiled( fileNameLeft, simplingRate)
+    musicRight = getWAVArrayFromCompiled(fileNameRight, simplingRate) # 获取双声道振幅数据
+    music      = np.c_[musicLeft, musicRight]                         # 将双声道振幅数据合并到一个 numpy.ndarray 中
+    wf.write(WAVFileName, simplingRate, music)                        # 写入到 WAV 文件中
+    print("[compiledToWAV] two channels compile success, outputFile: %s" % WAVFileName)
