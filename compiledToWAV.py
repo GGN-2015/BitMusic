@@ -10,9 +10,12 @@ import scipy.io.wavfile as wf
 
 import toneMgr # 音色管理器 (可能需要进行拓展)
 
-def getWAVArrayFromCompiled(fileName: str, simplingRate: int):
-    with open(fileName, "r") as fin:               # 读取 .compiled.json 文件
-        compiledJson = json.load(fin)
+def getWAVArrayFromCompiled(fileNameOrDict: str, simplingRate: int): # 如果 fileName 是 dict 数据，直接视为 .compiled.json
+    if type(fileNameOrDict) == str:
+        with open(fileNameOrDict, "r") as fin:               # 读取 .compiled.json 文件
+            compiledJson = json.load(fin)
+    else:
+        compiledJson = fileNameOrDict
     musicLength = compiledJson["length"]           # 乐曲持续的秒数
     musicData   = compiledJson["data"]             # 乐曲的所有音符数据
     arrayLength = int(simplingRate * musicLength)  # 临时储存振幅的数组的总长度
@@ -40,20 +43,28 @@ def getWAVArrayFromCompiled(fileName: str, simplingRate: int):
     music = music.astype(np.int16)
     return music
 
-def compile(fileName = './compiled/newMusic.compiled.json', WAVFileName = './wav/newMusic.wav', simplingRate = 44100): 
+def compile(fileNameOrDict = './compiled/newMusic.compiled.json', WAVFileName = './wav/newMusic.wav', simplingRate = 44100): 
                                                    # 编译一个 .compiled.json 文件
-    music = getWAVArrayFromCompiled(fileName, simplingRate)
-    wf.write(WAVFileName, simplingRate, music)        # 写入到 WAV 文件中
-    print("[compiledToWAV] compile success, outputFile: %s" % WAVFileName)
+    music = getWAVArrayFromCompiled(fileNameOrDict, simplingRate)
+    if WAVFileName != None:
+        wf.write(WAVFileName, simplingRate, music)        # 写入到 WAV 文件中
+        print("[compiledToWAV] compile success, outputFile: %s." % WAVFileName)
+    else:
+        print("[compiledToWAV] compile success, WAVFileName = None, return a DICT as result.")
+        return music
 
 def twoChannelsCompile( # 编译一个具有双声道的
-        fileNameLeft  = './compiled/newMusicLeft.compiled.json', 
-        fileNameRight = './compiled/newMusicRight.compiled.json',
+        fileNameOrDictLeft  = './compiled/newMusicLeft.compiled.json', 
+        fileNameOrDictRight = './compiled/newMusicRight.compiled.json',
         WAVFileName   = './wav/newMusic.wav',
         simplingRate  = 44100
     ):
-    musicLeft  = getWAVArrayFromCompiled( fileNameLeft, simplingRate)
-    musicRight = getWAVArrayFromCompiled(fileNameRight, simplingRate) # 获取双声道振幅数据
+    musicLeft  = getWAVArrayFromCompiled(fileNameOrDictLeft , simplingRate)
+    musicRight = getWAVArrayFromCompiled(fileNameOrDictRight, simplingRate) # 获取双声道振幅数据
     music      = np.c_[musicLeft, musicRight]                         # 将双声道振幅数据合并到一个 numpy.ndarray 中
-    wf.write(WAVFileName, simplingRate, music)                        # 写入到 WAV 文件中
-    print("[compiledToWAV] two channels compile success, outputFile: %s" % WAVFileName)
+    if WAVFileName != None:
+        wf.write(WAVFileName, simplingRate, music)                        # 写入到 WAV 文件中
+        print("[compiledToWAV] two channels compile success, outputFile: %s" % WAVFileName)
+    else:
+        print("[compiledToWAV] two channels compile success, return a DICT as result")
+        return music

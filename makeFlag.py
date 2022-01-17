@@ -11,9 +11,17 @@ flagJson = {"data": [], "length": -1} # length = -1 表示自动推断乐曲持�
 def initFlagJson(length = -1): # 设置歌曲的长度
     flagJson["length"] = length
     flagJson["data"]   = []
+    setSpeed(120)
+    setVolume(0.1)
+    setTone("Sine")
 
 def getPatternByName(patternName): # 根据 patternName 在 patterns 文件夹中得到伴奏 pattern
     with open("./patterns/" + patternName, "r") as f:
+        pattern = json.load(f)
+    return pattern
+
+def getSegmentByName(patternName): # 根据 patternName 在 segments 文件夹中得到旋律片段 pattern
+    with open("./segments/" + patternName, "r") as f:
         pattern = json.load(f)
     return pattern
 

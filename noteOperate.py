@@ -28,9 +28,14 @@ def getNoteNameById(noteId):
 def getMovedName(name, move): # 升或者降低若干个音
     return getNoteNameById(getIdByNoteName(name) + move)
 
-def listDeepCopy(val): # 对嵌套的 list 进行递归的完全深拷贝
+def listDeepCopy(val): # 对嵌套的 list/dict 进行递归的完全深拷贝
     if type(val) == list:
         return [listDeepCopy(x) for x in val]
+    elif type(val) == dict:
+        newDict = {}
+        for x in val:
+            newDict[x] = listDeepCopy(val[x])
+        return newDict
     else:
         return val
 

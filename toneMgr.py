@@ -25,16 +25,20 @@ def floatMod(arr, val): # 浮点数模运算
 
 # ---------- 在此处拓展实现音色管理器 ----------
 
-MuteNoteTransform = lambda freq, times: times * 0
-SineTransform     = lambda freq, times: np.sin(2 * np.pi * freq * times)
-SquareTransform   = lambda freq, times: sgn(SineTransform(freq, times)) / 2
-ZTransform        = lambda freq, times: (floatMod(times, (1.0 / freq)) - ((1.0 / freq) / 2)) / ((1.0 / freq) / 2) / 2
+MuteNoteTransform       = lambda freq, times: times * 0
+SineTransform           = lambda freq, times: np.sin(2 * np.pi * freq * times)
+SquareTransform         = lambda freq, times: sgn(SineTransform(freq, times)) / 2
+ZTransform              = lambda freq, times: (floatMod(times, (1.0 / freq)) - ((1.0 / freq) / 2)) / ((1.0 / freq) / 2) / 2
+FadingSineSlowTransform = lambda freq, times: np.sin(2 * np.pi * freq * times) * np.exp(- 4 * times)
+FadingSineFastTransform = lambda freq, times: np.sin(2 * np.pi * freq * times) * np.exp(- 12 * times)
 
 getTransformByName = {
-    "MuteNote": MuteNoteTransform,
-    "Sine"    : SineTransform,
-    "Square"  : SquareTransform,
-    "Z"       : ZTransform
+    "FadingSineSlow": FadingSineSlowTransform,
+    "FadingSineFast": FadingSineFastTransform,
+    "MuteNote"      : MuteNoteTransform,
+    "Sine"          : SineTransform,
+    "Square"        : SquareTransform,
+    "Z"             : ZTransform,
 }
 
 def getToneWAV(toneName, freq, arrLength, simplingRate):      # 根据音色生成对应的波形

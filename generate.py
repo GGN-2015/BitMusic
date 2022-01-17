@@ -17,30 +17,82 @@ if __name__ == "__main__":
     ptAm = noteOperate.getMovedPattern(ptCm, +9)
 
     makeFlag.initFlagJson()
-    makeFlag.setTone("Sine")
-    makeFlag.addPattern(ptC)
-    makeFlag.addPattern(ptG)
+    makeFlag.setTone("Square")
+    # makeFlag.setSpeed(240)
+    makeFlag.addPattern(ptC )
+    makeFlag.addPattern(ptG )
     makeFlag.addPattern(ptAm)
-    makeFlag.addPattern(ptF)
-    makeFlag.quickCompile(compiledFileName="./compiled/bg.tmp.compiled.json", WAVFileName=None) # 制作 BG
+    makeFlag.addPattern(ptF )
+    makeFlag.quickCompile(compiledFileName="./compiled/bg.tmp.compiled.json", WAVFileName=None) # 制作 BG 1
 
-    # ptC  = makeFlag.getPatternByName("UpAndDownMajor8-6.pattern.json")
-    # ptCm = makeFlag.getPatternByName("UpAndDownMinor8-6.pattern.json")
-    ptF  = noteOperate.getMovedPattern( ptC, +5)
-    ptG  = noteOperate.getMovedPattern( ptC, +7)
+    ptC  = makeFlag.getSegmentByName("DairyPart01C.pattern.json")
+    ptF  = makeFlag.getSegmentByName("DairyPart01F.pattern.json")
+    ptG  = makeFlag.getSegmentByName("DairyPart01G.pattern.json")
+    ptAm = makeFlag.getSegmentByName("DairyPart01Am.pattern.json")
+
+    makeFlag.initFlagJson()
+    makeFlag.setTone("Square")
+    makeFlag.setVolume(0.2)
+    makeFlag.addPattern(ptC )
+    makeFlag.addPattern(ptG )
+    makeFlag.addPattern(ptAm)
+    makeFlag.addPattern(ptF )
+    makeFlag.quickCompile(compiledFileName="./compiled/fg.tmp.compiled.json", WAVFileName=None) # 制作 FG 1
+
+    tmpCompiledFile1 = linkCompiled.merge(
+        [
+            "./compiled/fg.tmp.compiled.json", 
+            "./compiled/bg.tmp.compiled.json"
+        ],
+        # fileNameTo = None
+        fileNameTo = "./compiled/Dairy01.compiled.json"
+    ) # 叠加
+
+    ptC  = makeFlag.getPatternByName("T1213121Major4-4.pattern.json")
+    ptCm = makeFlag.getPatternByName("T1213121Minor4-4.pattern.json")
+    ptF  = noteOperate.getMovedPattern(ptC, +5)
+    ptG  = noteOperate.getMovedPattern(ptC, +7)
     ptAm = noteOperate.getMovedPattern(ptCm, +9)
 
     makeFlag.initFlagJson()
-    makeFlag.setSpeed(240) # 二倍速
     makeFlag.setTone("Square")
-    makeFlag.addPattern(ptC  * 2)
-    makeFlag.addPattern(ptG  * 2)
-    makeFlag.addPattern(ptAm * 2)
-    makeFlag.addPattern(ptF  * 2)
-    makeFlag.quickCompile(compiledFileName="./compiled/fg.tmp.compiled.json", WAVFileName=None) # 制作 FG
-    
-    compiledToWAV.twoChannelsCompile(
-        "./compiled/fg.tmp.compiled.json", # 左声道
-        "./compiled/bg.tmp.compiled.json", # 右声道
-        "./wav/newMusic.wav"
+    # makeFlag.setSpeed(240)
+    makeFlag.addPattern(ptC )
+    makeFlag.addPattern(ptG )
+    makeFlag.addPattern(ptAm)
+    makeFlag.addPattern(ptF )
+    makeFlag.quickCompile(compiledFileName="./compiled/bg.tmp.compiled.json", WAVFileName=None) # 制作 BG 2
+
+    ptC  = makeFlag.getSegmentByName("DairyPart02C.pattern.json")
+    ptF  = makeFlag.getSegmentByName("DairyPart02F.pattern.json")
+    ptG  = makeFlag.getSegmentByName("DairyPart02G.pattern.json")
+    ptAm = makeFlag.getSegmentByName("DairyPart02Am.pattern.json")
+
+    makeFlag.initFlagJson()
+    makeFlag.setTone("Square")
+    makeFlag.setVolume(0.2)
+    makeFlag.addPattern(ptC )
+    makeFlag.addPattern(ptG )
+    makeFlag.addPattern(ptAm)
+    makeFlag.addPattern(ptF )
+    makeFlag.quickCompile(compiledFileName="./compiled/fg.tmp.compiled.json", WAVFileName=None) # 制作 FG 2
+
+    tmpCompiledFile2 = linkCompiled.merge(
+        [
+            "./compiled/fg.tmp.compiled.json", 
+            "./compiled/bg.tmp.compiled.json"
+        ],
+        # fileNameTo = None
+        fileNameTo = "./compiled/Dairy02.compiled.json"
     ) # 叠加
+
+    tmpCompiledFile = linkCompiled.connect(
+        [
+            "./compiled/Dairy01.compiled.json", 
+            "./compiled/Dairy01.compiled.json", 
+            "./compiled/Dairy02.compiled.json",
+            "./compiled/Dairy02.compiled.json",
+        ], None
+    ) # 重复两遍
+
+    compiledToWAV.compile(tmpCompiledFile) # 编译得到单声道音乐
