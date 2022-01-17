@@ -12,7 +12,7 @@ def initFlagJson(length = -1): # 设置歌曲的长度
     flagJson["length"] = length
     flagJson["data"]   = []
 
-def getPatternByName(patternName): # 根据 patternName 得到 pattern
+def getPatternByName(patternName): # 根据 patternName 在 patterns 文件夹中得到伴奏 pattern
     with open("./patterns/" + patternName, "r") as f:
         pattern = json.load(f)
     return pattern
@@ -55,10 +55,14 @@ def saveToFile(fileName = "./flags/newMusic.flag.json"): # 保存到 .flag.json 
     with open(fileName, "w") as fout:
         json.dump(flagJson, fout)
 
-def quickCompile(): # 一键编译到 WAV 文件，仅用于调试
+def quickCompile(
+        compiledFileName = "./compiled/newMusic.wav",
+        WAVFileName = "./wav/newMusic.wav"
+    ): # 一键编译到 WAV 文件，仅用于调试
     print("[makeFlag] quickCompile: (deprecated) only use this function when debugging.")
     import flagToCompiled
     import compiledToWAV
-    saveToFile()             # 生成 .flag.json     标记文件
-    flagToCompiled.compile() # 生成 .compiled.json 音轨文件
-    compiledToWAV.compile()  # 生成 .was           波形文件
+    saveToFile()                                                                   # 生成 .flag.json     标记文件
+    flagToCompiled.compile(compiledFileName=compiledFileName)                      # 生成 .compiled.json 音轨文件
+    if WAVFileName != None:                                                        # 
+        compiledToWAV.compile(fileName=compiledFileName, WAVFileName=WAVFileName)  # 生成 .was           波形文件
