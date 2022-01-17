@@ -10,8 +10,8 @@ import noteOperate
 import compiledToWAV
 
 if __name__ == "__main__":
-    ptC  = makeFlag.getPatternByName("SimpleMajor8-6.pattern.json")
-    ptCm = makeFlag.getPatternByName("SimpleMinor8-6.pattern.json")
+    ptC  = makeFlag.getPatternByName("SimpleLyricMajor4-4.pattern.json")
+    ptCm = makeFlag.getPatternByName("SimpleLyricMinor4-4.pattern.json")
     ptF  = noteOperate.getMovedPattern( ptC, +5)
     ptG  = noteOperate.getMovedPattern( ptC, +7)
     ptAm = noteOperate.getMovedPattern(ptCm, +9)
@@ -23,8 +23,8 @@ if __name__ == "__main__":
     makeFlag.addPattern(ptF)
     makeFlag.quickCompile(compiledFileName="./compiled/bg.tmp.compiled.json", WAVFileName=None) # 制作 BG
 
-    ptC  = makeFlag.getPatternByName("UpAndDownMajor8-6.pattern.json")
-    ptCm = makeFlag.getPatternByName("UpAndDownMinor8-6.pattern.json")
+    # ptC  = makeFlag.getPatternByName("UpAndDownMajor8-6.pattern.json")
+    # ptCm = makeFlag.getPatternByName("UpAndDownMinor8-6.pattern.json")
     ptF  = noteOperate.getMovedPattern( ptC, +5)
     ptG  = noteOperate.getMovedPattern( ptC, +7)
     ptAm = noteOperate.getMovedPattern(ptCm, +9)
@@ -37,12 +37,21 @@ if __name__ == "__main__":
     makeFlag.addPattern(ptF  * 2)
     makeFlag.quickCompile(compiledFileName="./compiled/fg.tmp.compiled.json", WAVFileName=None) # 制作 FG
     
-    linkCompiled.link(
+    linkCompiled.merge(
         [
             "./compiled/fg.tmp.compiled.json",
             "./compiled/bg.tmp.compiled.json"
         ],
         "./compiled/newMusic.compiled.json"
-    ) # 链接
-    compiledToWAV.compile() # 编译成 wav 文件
+    ) # 叠加
+
+    linkCompiled.connect(
+        [
+            "./compiled/newMusic.compiled.json",
+            "./compiled/newMusic.compiled.json"
+        ],
+        "./compiled/newMusic.compiled.json"
+    ) # 连接
+
+    compiledToWAV.compile(simplingRate=88200) # 编译成 wav 文件
     

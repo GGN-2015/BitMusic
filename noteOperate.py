@@ -28,14 +28,14 @@ def getNoteNameById(noteId):
 def getMovedName(name, move): # 升或者降低若干个音
     return getNoteNameById(getIdByNoteName(name) + move)
 
-def _deepCopy(val): # 对嵌套的 list 进行递归的完全深拷贝
+def listDeepCopy(val): # 对嵌套的 list 进行递归的完全深拷贝
     if type(val) == list:
-        return [_deepCopy(x) for x in val]
+        return [listDeepCopy(x) for x in val]
     else:
         return val
 
 def getMovedPattern(pattern, move): # 升高或降低一个 pattern
-    newPattern = _deepCopy(pattern)  # 必须在拷贝后得到的 list 进行操作
+    newPattern = listDeepCopy(pattern)  # 必须在拷贝后得到的 list 进行操作
     for i in range(len(pattern)):
         newNameList = []
         for name in pattern[i][0]:

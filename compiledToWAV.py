@@ -22,7 +22,7 @@ def compile(fileName = './compiled/newMusic.compiled.json', WAVFileName = './wav
         freq     = note["freq"]   # 音符频率
         begin    = note["begin"]  # 音符起始秒数
         span     = note["span"]   # 音符持续秒数
-        volumn   = note["volume"] # 音符振幅 0 ~ 1 之间的实数
+        volume   = note["volume"] # 音符振幅 0 ~ 1 之间的实数
         tone     = note["tone"]   # 音色名称
         arrBegin = int(begin * simplingRate)          # 数组中的起始下标
         arrEnd   = int((begin + span) * simplingRate) # 数组中的结束位置下标
@@ -30,8 +30,8 @@ def compile(fileName = './compiled/newMusic.compiled.json', WAVFileName = './wav
             arrEnd   = min(arrEnd, arrayLength)       # 音符在数组中对应的区间是 [arrBegin, arrEnd)
                                                       # 获取对应的音色波形，默认响度为最大，反回值类型为 np.ndarray
             noteWav  = toneMgr.getToneWAV(tone, freq, arrEnd - arrBegin, simplingRate)
-            if 0 <= volumn and volumn <= 1:
-                noteWav *= volumn                     # 调整响度到实际响度
+            if 0 <= volume and volume <= 1:
+                noteWav *= volume                     # 调整响度到实际响度
             for i in range(arrBegin, arrEnd):         # 将音色波形叠加到 music 振幅序列上
                 music[i] += noteWav[i - arrBegin]
     maxValue = np.max(np.abs(music))                  # 最大振幅校验，如果最大振幅超过了 1, 说明可能有截断风险
