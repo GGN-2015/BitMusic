@@ -6,15 +6,15 @@
 
 ## 工具程序
 
-| 程序名称                   | 程序功能                                                     |
-| -------------------------- | ------------------------------------------------------------ |
-| compiledToWAV.py           | 将 .compiled.json 编译成 .wav 音频文件。                     |
-| flagToCompiled.py          | 将 .flag.json 编译成 .compiled.json 文件。                   |
-| - generate.py (unfinished) | 由用户自己编写的生成器程序。                                 |
-| linkCompiled.py            | 将两个 .compiled.json 音轨直接叠加，得到新的 .compiled.json。 |
-| noteOperate.py             | pattern 中音高调整相关算法，实现和弦复用。                   |
-| makeFlag.py                | 生成 .flag.json 文件的相关算法。                             |
-| toneMgr.py                 | 音色管理器，根据音色名获取 numpy.ndarray 波形数据。          |
+| 程序名称          | 程序功能                                                     |
+| ----------------- | ------------------------------------------------------------ |
+| compiledToWAV.py  | 将 .compiled.json 编译成 .wav 音频文件。                     |
+| flagToCompiled.py | 将 .flag.json 编译成 .compiled.json 文件。                   |
+| - generate.py     | 由用户自己编写的生成器程序。                                 |
+| linkCompiled.py   | 将两个 .compiled.json 音轨直接叠加，得到新的 .compiled.json。 |
+| noteOperate.py    | pattern 中音高调整相关算法，实现和弦复用。                   |
+| makeFlag.py       | 生成 .flag.json 文件的相关算法。                             |
+| toneMgr.py        | 音色管理器，根据音色名获取 numpy.ndarray 波形数据。          |
 
 ## 文件类型
 
@@ -33,7 +33,7 @@
 
 ### .note.json
 
-一个音符，形如 ``[[str, ...], float]`` 其中 str 是一个音符对应的音名， float 是这个音符持续的拍数。
+一个音符，形如 ``[[str, ...], float]`` 其中 str 是一个音符对应的音名， float 是这个音符持续的拍数。一般不会把一个音符单独存到一个文件中。note 是 pattern 的基本组成元素。
 
 ### .pattern.json
 

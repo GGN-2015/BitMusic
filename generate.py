@@ -17,6 +17,7 @@ if __name__ == "__main__":
     ptAm = noteOperate.getMovedPattern(ptCm, +9)
 
     makeFlag.initFlagJson()
+    makeFlag.setTone("Sine")
     makeFlag.addPattern(ptC)
     makeFlag.addPattern(ptG)
     makeFlag.addPattern(ptAm)
@@ -31,6 +32,7 @@ if __name__ == "__main__":
 
     makeFlag.initFlagJson()
     makeFlag.setSpeed(240) # 二倍速
+    makeFlag.setTone("Square")
     makeFlag.addPattern(ptC  * 2)
     makeFlag.addPattern(ptG  * 2)
     makeFlag.addPattern(ptAm * 2)
