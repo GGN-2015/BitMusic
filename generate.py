@@ -12,6 +12,8 @@ import compiledToWAV
 if __name__ == "__main__":
     ptC  = makeFlag.getPatternByName("SimpleLyricMajor4-4.pattern.json")
     ptCm = makeFlag.getPatternByName("SimpleLyricMinor4-4.pattern.json")
+    ptC  = noteOperate.getMovedPattern(ptC,  -12)
+    ptCm = noteOperate.getMovedPattern(ptCm, -12) # 降低 8 度
     ptF  = noteOperate.getMovedPattern( ptC, +5)
     ptG  = noteOperate.getMovedPattern( ptC, +7)
     ptAm = noteOperate.getMovedPattern(ptCm, +9)
@@ -31,8 +33,7 @@ if __name__ == "__main__":
     ptAm = makeFlag.getSegmentByName("DairyPart01Am.pattern.json")
 
     makeFlag.initFlagJson()
-    makeFlag.setTone("Square")
-    makeFlag.setVolume(0.2)
+    makeFlag.setTone("Z")
     makeFlag.addPattern(ptC )
     makeFlag.addPattern(ptG )
     makeFlag.addPattern(ptAm)
@@ -50,9 +51,11 @@ if __name__ == "__main__":
 
     ptC  = makeFlag.getPatternByName("T1213121Major4-4.pattern.json")
     ptCm = makeFlag.getPatternByName("T1213121Minor4-4.pattern.json")
-    ptF  = noteOperate.getMovedPattern(ptC, +5)
-    ptG  = noteOperate.getMovedPattern(ptC, +7)
-    ptAm = noteOperate.getMovedPattern(ptCm, +9)
+    ptC  = noteOperate.getMovedPattern(ptC,  -12)
+    ptCm = noteOperate.getMovedPattern(ptCm, -12) # 降低八度
+    ptF  = noteOperate.getMovedPattern(ptC,  +5 )
+    ptG  = noteOperate.getMovedPattern(ptC,  +7 )
+    ptAm = noteOperate.getMovedPattern(ptCm, +9 )
 
     makeFlag.initFlagJson()
     makeFlag.setTone("Square")
@@ -69,8 +72,7 @@ if __name__ == "__main__":
     ptAm = makeFlag.getSegmentByName("DairyPart02Am.pattern.json")
 
     makeFlag.initFlagJson()
-    makeFlag.setTone("Square")
-    makeFlag.setVolume(0.2)
+    makeFlag.setTone("Z")
     makeFlag.addPattern(ptC )
     makeFlag.addPattern(ptG )
     makeFlag.addPattern(ptAm)

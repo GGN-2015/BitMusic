@@ -5,15 +5,16 @@
 """
 
 import json
+import constant
 
 flagJson = {"data": [], "length": -1} # length = -1 表示自动推断乐曲持续时间
 
 def initFlagJson(length = -1): # 设置歌曲的长度
     flagJson["length"] = length
     flagJson["data"]   = []
-    setSpeed(120)
-    setVolume(0.1)
-    setTone("Sine")
+    setSpeed (constant.DEFAULT_SPEED)
+    setVolume(constant.DEFAULT_VOLUME)
+    setTone  (constant.DEFAULT_TONE)
 
 def getPatternByName(patternName): # 根据 patternName 在 patterns 文件夹中得到伴奏 pattern
     with open("./patterns/" + patternName, "r") as f:
@@ -71,6 +72,9 @@ def quickCompile(
     import flagToCompiled
     import compiledToWAV
     saveToFile()                                                                   # 生成 .flag.json     标记文件
-    flagToCompiled.compile(compiledFileName=compiledFileName)                      # 生成 .compiled.json 音轨文件
+    if compiledFileName != None:
+        flagToCompiled.compile(compiledFileName=compiledFileName)                  # 生成 .compiled.json 音轨文件
     if WAVFileName != None:                                                        # 
         compiledToWAV.compile(fileName=compiledFileName, WAVFileName=WAVFileName)  # 生成 .was           波形文件
+    if compiledFileName == None:
+        return flagToCompiled.compile(compiledFileName = None)
