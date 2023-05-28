@@ -868,6 +868,106 @@ def TestSine():
     music = main_compiled
     Compile.dumpWAV(music, "./WAV/TestSine.wav")
 
+###############################################################
+# test008                                                     #
+###############################################################
+def test008():
+    #############################################################
+    # acc                                                       #
+    #############################################################
+    acc001 = Chords.Pattern007("C2")
+    acc002 = Chords.Pattern007("G2")
+    acc003 = Chords.Pattern007("A2")
+    acc004 = Chords.Pattern007("E2")
+    acc005 = Chords.Pattern007("F2")
+    acc006 = Chords.Pattern007("C2")
+    acc007 = Chords.Pattern007("D2")
+    acc008 = Chords.Pattern007("G2")
+    acc009 = Chords.Pattern007("C2")
+    acc010 = Chords.Pattern007("G2")
+    acc011 = Chords.Pattern007("A2")
+    acc012 = Chords.Pattern007("E2")
+    acc013 = Chords.Pattern007("F2")
+    acc014 = Chords.Pattern007("C2")
+    acc015 = Chords.Pattern007("G2")
+    acc016 = Chords.Pattern007("C2")
+    acc  = Methods.LinkNoteListSetArray([
+        acc001, acc002, acc003, acc004, acc005, acc006, acc007, acc008,
+        acc009, acc010, acc011, acc012, acc013, acc014, acc015, acc016
+    ])
+
+    #############################################################
+    # main                                                      #
+    #############################################################
+    main = [[
+        Methods.createNote("E4", 2),
+        Methods.createNote("G4", 1),
+        Methods.createNote("E4", 1),
+        Methods.createNote("D4", 2),
+        Methods.createNote("G3", 2),
+
+        Methods.createNote("C4", 2),
+        Methods.createNote("E4", 1),
+        Methods.createNote("C4", 1),
+        Methods.createNote("B3", 2),
+        Methods.createNote("E3", 2),
+        
+        Methods.createNote("A3", 2),
+        Methods.createNote("G3", 1),
+        Methods.createNote("F3", 1),
+        Methods.createNote("G3", 2),
+        Methods.createNote("C3", 2),
+
+        Methods.createNote("A3", 1),
+        Methods.createNote("B3", 1),
+        Methods.createNote("C4", 1),
+        Methods.createNote("E4", 1),
+        Methods.createNote("D4", 2),
+        Methods.createNote("C4", 1),
+        Methods.createNote("D4", 1),
+
+        Methods.createNote("E4", 2),
+        Methods.createNote("G4", 1),
+        Methods.createNote("E4", 1),
+        Methods.createNote("D4", 2),
+        Methods.createNote("G4", 2),
+
+        Methods.createNote("A4", 1),
+        Methods.createNote("B4", 1),
+        Methods.createNote("C5", 1),
+        Methods.createNote("A4", 1),
+        Methods.createNote("G4", 4),
+
+        
+        Methods.createNote("A4", 1),
+        Methods.createNote("G4", 1),
+        Methods.createNote("F4", 1),
+        Methods.createNote("A4", 1),
+        Methods.createNote("G4", 1),
+        Methods.createNote("E4", 1),
+        Methods.createNote("D4", 1),
+        Methods.createNote("C4", 1),
+
+        Methods.createNote("D4", 2),
+        Methods.createNote("D4", 1),
+        Methods.createNote("E4", 1),
+        Methods.createNote("C4", 4),
+    ]]
+
+    #############################################################
+    # tune                                                      #
+    #############################################################
+    acc  = Methods.tuneNoteListSet(acc, Methods.distance("A3", "E3"))
+    main = Methods.tuneNoteListSet(main, Methods.distance("A3", "E3"))
+
+    #############################################################
+    # compiled                                                  #
+    #############################################################
+    acc_compiled  = Compile.compileNoteListSet(acc , 0.4, TimbreSgn, 44100, 0.2)
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+
+    music = acc_compiled + main_compiled
+    Compile.dumpWAV(music, "./WAV/test008.wav")
 
 if __name__ == "__main__":
-    test006()
+    test008()
