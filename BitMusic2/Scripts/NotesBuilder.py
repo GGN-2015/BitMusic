@@ -1,10 +1,11 @@
+import os
+import DirUtils
 
 ######################
 # NotesBuilder.py    #
 # Author: GGN_2015   #
 # Date  : 2022-07-20 #
 ######################
-
 
 message = """
 ############################################################
@@ -15,7 +16,7 @@ message = """
 """
 
 from pathlib import Path
-my_file = Path("./Data/Notes.json")
+my_file = Path(os.path.join(DirUtils.DATA_DIR, "Notes.json"))
 if my_file.is_file():
     print(message)
     exit()
@@ -27,7 +28,7 @@ if my_file.is_file():
 import json
 
 try:
-    with open('./Data/NoteFreq.json', 'r') as f:
+    with open(os.path.join(DirUtils.DATA_DIR, 'NoteFreq.json'), 'r') as f:
         data = json.load(f)
 except:
     print("Error: NoteFreq.json not found")
@@ -55,4 +56,5 @@ for note in data:
     )
     mem['NoteCount'] += 1
 
-json.dump(mem, open('./Data/Notes.json', 'w'), indent=4)
+json.dump(mem, 
+    open(os.path.join(DirUtils.DATA_DIR,'Notes.json'), 'w'), indent=4)

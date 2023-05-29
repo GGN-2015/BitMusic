@@ -1,3 +1,5 @@
+import os
+import DirUtils
 
 ########################
 # Methods.py           #
@@ -12,7 +14,7 @@
 #############################################################
 import json
 try:
-    with open('./Data/Notes.json', 'r') as f:
+    with open(os.path.join(DirUtils.DATA_DIR, 'Notes.json'), 'r') as f:
         Notes = json.load(f)
 except:
     print("Error: Notes.json not found")

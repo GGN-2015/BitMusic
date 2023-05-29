@@ -969,5 +969,165 @@ def test008():
     music = acc_compiled + main_compiled
     Compile.dumpWAV(music, "./WAV/test008.wav")
 
+###############################################################
+# test009                                                     #
+###############################################################
+def test009():
+    main = [[
+        Methods.createNote("C4", 0.2),
+        Methods.createNote("E4", 0.2),
+        Methods.createNote("G4", 0.2),
+        Methods.createNote("C5", 0.2),
+    ]]
+
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+    music = main_compiled
+    Compile.dumpWAV(music, "./WAV/test009-C.wav")
+
+###############################################################
+# test010                                                     #
+###############################################################
+def test010():
+    main = [[
+        Methods.createNote("C5", 0.2),
+        Methods.createNote("G4", 0.2),
+        Methods.createNote("E4", 0.2),
+        Methods.createNote("C4", 0.2),
+    ]]
+
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+    music = main_compiled
+    Compile.dumpWAV(music, "./WAV/test010.wav")
+
+###############################################################
+# test011                                                     #
+###############################################################
+def test011():
+    sub = [[
+        Methods.createNote("F3", 1),
+        Methods.createNote("E3", 1),
+        Methods.createNote("D#3", 1),
+        Methods.createNote("D3", 4),
+    ]]
+    main = [[
+        Methods.createNote("B3", 1),
+        Methods.createNote("A#3", 1),
+        Methods.createNote("A3", 1),
+        Methods.createNote("G#3", 4),
+    ]]
+
+    sub_compiled  = Compile.compileNoteListSet(sub, 0.4, TimbreSgn, 44100, 0.2)
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+    music = sub_compiled + main_compiled
+    Compile.dumpWAV(music, "./WAV/test011.wav")
+
+###############################################################
+# test012                                                     #
+###############################################################
+def test012():
+    sub = [[
+        Methods.createNote("A2", 16),
+        Methods.createNote("G2", 16),
+        Methods.createNote("F2", 16),
+        Methods.createNote("E2", 16),
+    ],[
+        Methods.createNote("E2", 16),
+        Methods.createNote("D2", 16),
+        Methods.createNote("C2", 16),
+        Methods.createNote("B2", 16),
+    ]]
+    main = [[
+        Methods.createNote("A3", 2),
+        Methods.createNote("A3", 2),
+        Methods.createNote("G3", 2),
+        Methods.createNote("A3", 2),
+        Methods.createNote("A3", 1),
+        Methods.createNote("G3", 1),
+        Methods.createNote("A3", 2),
+        Methods.createNote("C4", 2),
+        Methods.createNote("D4", 2),
+
+        Methods.createNote("A3", 2),
+        Methods.createNote("A3", 2),
+        Methods.createNote("G3", 2),
+        Methods.createNote("A3", 2),
+        Methods.createNote("A3", 1),
+        Methods.createNote("G3", 1),
+        Methods.createNote("A3", 2),
+        Methods.createNote("G3", 2),
+        Methods.createNote("E3", 2),
+
+        Methods.createNote("A3", 2),
+        Methods.createNote("A3", 2),
+        Methods.createNote("G3", 2),
+        Methods.createNote("A3", 2),
+        Methods.createNote("A3", 1),
+        Methods.createNote("G3", 1),
+        Methods.createNote("A3", 2),
+        Methods.createNote("C4", 2),
+        Methods.createNote("D4", 2),
+
+        Methods.createNote("E4", 4),
+        Methods.createNote("G4", 2),
+        Methods.createNote("D4", 2),
+        Methods.createNote("E4", 8),
+    ]]
+
+    #############################################################
+    # tune                                                      #
+    #############################################################
+    sub  = Methods.tuneNoteListSet(sub, Methods.distance("A3", "E3"))
+    main = Methods.tuneNoteListSet(main, Methods.distance("A3", "E3"))
+
+    sub_compiled  = Compile.compileNoteListSet(sub, 0.1, TimbreSgn, 44100, 0.2)
+    main_compiled = Compile.compileNoteListSet(main, 0.1, TimbreSgn, 44100, 0.2)
+    music = sub_compiled + main_compiled
+    Compile.dumpWAV(music, "./WAV/test012.wav")
+
+###############################################################
+# test013                                                     #
+###############################################################
+def test013():
+    main = [[
+        Methods.createNote("D4", 0.2),
+        Methods.createNote("F#4", 0.2),
+        Methods.createNote("A4", 0.2),
+        Methods.createNote("D5", 0.2),
+    ]]
+
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+    music = main_compiled
+    Compile.dumpWAV(music, "./WAV/test013-D.wav")
+
+###############################################################
+# test014                                                     #
+###############################################################
+def test014():
+    main = [[
+        Methods.createNote("E4", 0.2),
+        Methods.createNote("G#4", 0.2),
+        Methods.createNote("B4", 0.2),
+        Methods.createNote("E5", 0.2),
+    ]]
+
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+    music = main_compiled
+    Compile.dumpWAV(music, "./WAV/test014-E.wav")
+
+###############################################################
+# test015                                                     #
+###############################################################
+def test015():
+    main = [[
+        Methods.createNote("F4", 0.2),
+        Methods.createNote("A4", 0.2),
+        Methods.createNote("C5", 0.2),
+        Methods.createNote("F5", 0.2),
+    ]]
+
+    main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
+    music = main_compiled
+    Compile.dumpWAV(music, "./WAV/test015-F.wav")
+
 if __name__ == "__main__":
-    test008()
+    test015()
