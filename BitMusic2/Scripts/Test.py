@@ -978,6 +978,7 @@ def test009():
         Methods.createNote("E4", 0.2),
         Methods.createNote("G4", 0.2),
         Methods.createNote("C5", 0.2),
+        Methods.createNote("NULL", 0.2),
     ]]
 
     main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
@@ -993,11 +994,12 @@ def test010():
         Methods.createNote("G4", 0.2),
         Methods.createNote("E4", 0.2),
         Methods.createNote("C4", 0.2),
+        Methods.createNote("NULL", 0.2),
     ]]
 
     main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
     music = main_compiled
-    Compile.dumpWAV(music, "./WAV/test010.wav")
+    Compile.dumpWAV(music, "./WAV/test010-C-down.wav")
 
 ###############################################################
 # test011                                                     #
@@ -1093,6 +1095,7 @@ def test013():
         Methods.createNote("F#4", 0.2),
         Methods.createNote("A4", 0.2),
         Methods.createNote("D5", 0.2),
+        Methods.createNote("NULL", 0.2),
     ]]
 
     main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
@@ -1108,6 +1111,7 @@ def test014():
         Methods.createNote("G#4", 0.2),
         Methods.createNote("B4", 0.2),
         Methods.createNote("E5", 0.2),
+        Methods.createNote("NULL", 0.2),
     ]]
 
     main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
@@ -1123,11 +1127,46 @@ def test015():
         Methods.createNote("A4", 0.2),
         Methods.createNote("C5", 0.2),
         Methods.createNote("F5", 0.2),
+        Methods.createNote("NULL", 0.2),
     ]]
 
     main_compiled = Compile.compileNoteListSet(main, 0.4, TimbreSgn, 44100, 0.2)
     music = main_compiled
     Compile.dumpWAV(music, "./WAV/test015-F.wav")
 
+###############################################################
+# test016                                                     #
+###############################################################
+def test016():
+    acc = [[
+        Methods.createNote("A3", 0.4),
+        Methods.createNote("C4", 0.4),
+        Methods.createNote("F4", 0.4),
+        Methods.createNote("B3", 0.4),
+        Methods.createNote("D4", 0.4),
+        Methods.createNote("G4", 0.4),
+        Methods.createNote("C4", 0.4),
+        Methods.createNote("E4", 0.4),
+        Methods.createNote("G4", 0.4),
+        Methods.createNote("C4", 0.4),
+        Methods.createNote("NULL", 0.2),
+    ]]
+    main = [[
+        Methods.createNote("F4", 0.4),
+        Methods.createNote("A4", 0.4),
+        Methods.createNote("C5", 0.4),
+        Methods.createNote("G4", 0.4),
+        Methods.createNote("B4", 0.4),
+        Methods.createNote("D5", 0.4),
+        Methods.createNote("C5", 1.6),
+        Methods.createNote("NULL", 0.2),
+    ]]
+
+    acc_compiled = Compile.compileNoteListSet(acc, 0.5, TimbreSgn, 44100, 0.15)
+    main_compiled = Compile.compileNoteListSet(main, 0.5, TimbreSgn, 44100, 0.2)
+    length = min(len(main_compiled), len(acc_compiled))
+    music = main_compiled[:length] + acc_compiled[:length]
+    Compile.dumpWAV(music, "./WAV/test016.wav")
+
 if __name__ == "__main__":
-    test015()
+    test016()
